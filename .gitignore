@@ -1,0 +1,9 @@
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+/.idea/.idea.ATDD.V2.Exercise.CSharp/.idea/indexLayout.xml
+/.idea/.idea.ATDD.V2.Exercise.CSharp/.idea/projectSettingsUpdater.xml
+/.idea/.idea.ATDD.V2.Exercise.CSharp/.idea/vcs.xml
+/.idea/.idea.ATDD.V2.Exercise.CSharp/.idea/workspace.xml
