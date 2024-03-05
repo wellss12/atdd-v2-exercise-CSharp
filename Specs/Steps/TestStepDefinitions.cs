@@ -4,7 +4,6 @@ using ATDD.V2.Exercise.CSharp.Specs.PageObjects;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 
@@ -13,15 +12,16 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Steps;
 [Binding]
 public class TestStepDefinitions
 {
+    private readonly Browser _browser;
     private readonly MyDbContext _dbContext;
     private readonly LoginPage _loginPage;
     private HttpResponseMessage _response;
-    private RemoteWebDriver? _webDriver;
 
-    public TestStepDefinitions(MyDbContext dbContext)
+    public TestStepDefinitions(MyDbContext dbContext, Browser browser, LoginPage loginPage)
     {
         _dbContext = dbContext;
-        _loginPage = new LoginPage();
+        _browser = browser;
+        _loginPage = loginPage;
     }
 
     [Given(@"存在用户名为""(.*)""和密码为""(.*)""的用户")]
@@ -74,7 +74,7 @@ public class TestStepDefinitions
     [Then(@"那么打印 Yahoo 为您找到的相关结果数")]
     public void Then那么打印Yahoo为您找到的相关结果数()
     {
-        var result = _webDriver!.FindElementByCssSelector("#cols > ol > li.last > div > div > aside > span").Text;
+        var result = GetWebDriver().FindElementByCssSelector("#cols > ol > li.last > div > div > aside > span").Text;
         Console.WriteLine(result);
     }
 
@@ -90,42 +90,31 @@ public class TestStepDefinitions
     [AfterScenario]
     public void QuitWebDriver()
     {
-        if (_webDriver is not null)
-        {
-            _webDriver.Quit();
-            _webDriver = null;
-        }
-
-        _loginPage.QuitWebDriver();
+        _browser.QuitWebDriver();
     }
 
-    public RemoteWebDriver GetWebDriver()
+    private RemoteWebDriver GetWebDriver()
     {
-        if (_webDriver is null)
-        {
-            _webDriver = new RemoteWebDriver(new Uri("http://web-driver.tool.net:4444"), new ChromeOptions());
-        }
-
-        return _webDriver;
+        return _browser.GetWebDriver();
     }
 
     [When(@"以用户名为""(.*)""和密码为""(.*)""登录时")]
     public void When以用户名为和密码为登录时(string userName, string password)
     {
-        _loginPage.OpenLoginPage();
+        _loginPage.Open();
         _loginPage.Login(userName, password);
     }
 
     [Then(@"""(.*)""登录成功")]
     public void Then登录成功(string userName)
     {
-        _loginPage.ShouldHaveText($"Welcome {userName}");
+        _browser.ShouldHaveText($"Welcome {userName}");
     }
 
     [Then(@"登录失败的错误信息是""(.*)""")]
     public void Then登录失败的错误信息是(string errorMessage)
     {
-        var webDriverWait = new WebDriverWait(_loginPage.GetWebDriver(), TimeSpan.FromSeconds(10));
+        var webDriverWait = new WebDriverWait(_browser.GetWebDriver(), TimeSpan.FromSeconds(10));
         webDriverWait
             .Until(driver => driver.FindElement(By.XPath($"//*[text()='{errorMessage}']")))
             .Should()
