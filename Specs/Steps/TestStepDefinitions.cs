@@ -5,20 +5,21 @@ using Microsoft.EntityFrameworkCore;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Support.UI;
 
 namespace ATDD.V2.Exercise.CSharp.Specs.Steps;
 
 [Binding]
 public class TestStepDefinitions
 {
+    private readonly MyDbContext _dbContext;
+    private HttpResponseMessage _response;
+    private RemoteWebDriver? _webDriver;
+
     public TestStepDefinitions(MyDbContext dbContext)
     {
         _dbContext = dbContext;
     }
-
-    private readonly MyDbContext _dbContext;
-    private HttpResponseMessage _response;
-    private RemoteWebDriver? _webDriver;
 
     [Given(@"存在用户名为""(.*)""和密码为""(.*)""的用户")]
     public async Task Given存在用户名为和密码为的用户(string userName, string password)
@@ -29,7 +30,7 @@ public class TestStepDefinitions
             _dbContext.Users.RemoveRange(allUsers);
         }
 
-        await _dbContext.Users.AddAsync(new User() { UserName = userName, Password = password });
+        await _dbContext.Users.AddAsync(new User { UserName = userName, Password = password });
         await _dbContext.SaveChangesAsync();
     }
 
@@ -37,8 +38,8 @@ public class TestStepDefinitions
     public async Task When通过api以用户名为和密码为登录时(string userName, string password)
     {
         var httpClient = new HttpClient();
-        var user = new User() { UserName = userName, Password = password };
-        var json = JsonSerializer.Serialize(user, new JsonSerializerOptions()
+        var user = new User { UserName = userName, Password = password };
+        var json = JsonSerializer.Serialize(user, new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });
@@ -62,7 +63,7 @@ public class TestStepDefinitions
         var searchButton = webDriver.FindElementByCssSelector("#header-desktop-search-button");
         searchInput.SendKeys(keyword);
         searchButton.Click();
-        
+
         Thread.Sleep(5000);
     }
 
@@ -101,5 +102,43 @@ public class TestStepDefinitions
         }
 
         return _webDriver;
+    }
+
+    [When(@"以用户名为""(.*)""和密码为""(.*)""登录时")]
+    public void When以用户名为和密码为登录时(string userName, string password)
+    {
+        var webDriver = GetWebDriver();
+        webDriver.Navigate().GoToUrl("http://host.docker.internal:10081/");
+        var webDriverWait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+        webDriverWait
+            .Until(driver => driver.FindElement(By.XPath("//*[@placeholder='用户名']")))
+            .SendKeys(userName);
+        webDriverWait
+            .Until(driver => driver.FindElement(By.XPath("//*[@placeholder='密码']")))
+            .SendKeys(password);
+        webDriverWait
+            .Until(driver => driver.FindElement(By.XPath("//*[text()='登录']")))
+            .Click();
+    }
+
+    [Then(@"""(.*)""登录成功")]
+    public void Then登录成功(string userName)
+    {
+        // 主要是為了避免元素未加载完成就開始 Assert
+        var webDriverWait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
+        webDriverWait
+            .Until(driver => driver.FindElement(By.XPath($"//*[text()='Welcome {userName}']")))
+            .Should()
+            .NotBeNull();
+    }
+
+    [Then(@"登录失败的错误信息是""(.*)""")]
+    public void Then登录失败的错误信息是(string errorMessage)
+    {
+        var webDriverWait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
+        webDriverWait
+            .Until(driver => driver.FindElement(By.XPath($"//*[text()='{errorMessage}']")))
+            .Should()
+            .NotBeNull();
     }
 }
