@@ -21,7 +21,7 @@ public class TestStepDefinitions
     public TestStepDefinitions(MyDbContext dbContext)
     {
         _dbContext = dbContext;
-        _loginPage = new LoginPage(this);
+        _loginPage = new LoginPage();
     }
 
     [Given(@"存在用户名为""(.*)""和密码为""(.*)""的用户")]
@@ -95,6 +95,8 @@ public class TestStepDefinitions
             _webDriver.Quit();
             _webDriver = null;
         }
+
+        _loginPage.QuitWebDriver();
     }
 
     public RemoteWebDriver GetWebDriver()
@@ -123,7 +125,7 @@ public class TestStepDefinitions
     [Then(@"登录失败的错误信息是""(.*)""")]
     public void Then登录失败的错误信息是(string errorMessage)
     {
-        var webDriverWait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
+        var webDriverWait = new WebDriverWait(_loginPage.GetWebDriver(), TimeSpan.FromSeconds(10));
         webDriverWait
             .Until(driver => driver.FindElement(By.XPath($"//*[text()='{errorMessage}']")))
             .Should()
