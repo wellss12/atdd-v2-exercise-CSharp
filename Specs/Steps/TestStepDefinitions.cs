@@ -107,9 +107,13 @@ public class TestStepDefinitions
     [When(@"以用户名为""(.*)""和密码为""(.*)""登录时")]
     public void When以用户名为和密码为登录时(string userName, string password)
     {
-        var webDriver = GetWebDriver();
-        webDriver.Navigate().GoToUrl("http://host.docker.internal:10081/");
-        var webDriverWait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+        OpenLoginPage();
+        Login(userName, password);
+    }
+
+    private void Login(string userName, string password)
+    {
+        var webDriverWait = new WebDriverWait(GetWebDriver(), TimeSpan.FromSeconds(10));
         webDriverWait
             .Until(driver => driver.FindElement(By.XPath("//*[@placeholder='用户名']")))
             .SendKeys(userName);
@@ -121,13 +125,23 @@ public class TestStepDefinitions
             .Click();
     }
 
+    private void OpenLoginPage()
+    {
+        GetWebDriver().Navigate().GoToUrl("http://host.docker.internal:10081/");
+    }
+
     [Then(@"""(.*)""登录成功")]
     public void Then登录成功(string userName)
     {
+        ShouldHaveText($"Welcome {userName}");
+    }
+
+    private void ShouldHaveText(string text)
+    {
         // 主要是為了避免元素未加载完成就開始 Assert
-        var webDriverWait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
+        var webDriverWait = new WebDriverWait(GetWebDriver(), TimeSpan.FromSeconds(10));
         webDriverWait
-            .Until(driver => driver.FindElement(By.XPath($"//*[text()='Welcome {userName}']")))
+            .Until(driver => driver.FindElement(By.XPath($"//*[text()='{text}']")))
             .Should()
             .NotBeNull();
     }
