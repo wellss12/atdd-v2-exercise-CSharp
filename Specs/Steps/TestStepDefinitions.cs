@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using ATDD.V2.Exercise.CSharp.Specs.PageObjects;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using OpenQA.Selenium;
@@ -13,12 +14,14 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Steps;
 public class TestStepDefinitions
 {
     private readonly MyDbContext _dbContext;
+    private readonly LoginPage _loginPage;
     private HttpResponseMessage _response;
     private RemoteWebDriver? _webDriver;
 
     public TestStepDefinitions(MyDbContext dbContext)
     {
         _dbContext = dbContext;
+        _loginPage = new LoginPage(this);
     }
 
     [Given(@"存在用户名为""(.*)""和密码为""(.*)""的用户")]
@@ -94,7 +97,7 @@ public class TestStepDefinitions
         }
     }
 
-    private RemoteWebDriver GetWebDriver()
+    public RemoteWebDriver GetWebDriver()
     {
         if (_webDriver is null)
         {
@@ -107,43 +110,14 @@ public class TestStepDefinitions
     [When(@"以用户名为""(.*)""和密码为""(.*)""登录时")]
     public void When以用户名为和密码为登录时(string userName, string password)
     {
-        OpenLoginPage();
-        Login(userName, password);
-    }
-
-    private void Login(string userName, string password)
-    {
-        var webDriverWait = new WebDriverWait(GetWebDriver(), TimeSpan.FromSeconds(10));
-        webDriverWait
-            .Until(driver => driver.FindElement(By.XPath("//*[@placeholder='用户名']")))
-            .SendKeys(userName);
-        webDriverWait
-            .Until(driver => driver.FindElement(By.XPath("//*[@placeholder='密码']")))
-            .SendKeys(password);
-        webDriverWait
-            .Until(driver => driver.FindElement(By.XPath("//*[text()='登录']")))
-            .Click();
-    }
-
-    private void OpenLoginPage()
-    {
-        GetWebDriver().Navigate().GoToUrl("http://host.docker.internal:10081/");
+        _loginPage.OpenLoginPage();
+        _loginPage.Login(userName, password);
     }
 
     [Then(@"""(.*)""登录成功")]
     public void Then登录成功(string userName)
     {
-        ShouldHaveText($"Welcome {userName}");
-    }
-
-    private void ShouldHaveText(string text)
-    {
-        // 主要是為了避免元素未加载完成就開始 Assert
-        var webDriverWait = new WebDriverWait(GetWebDriver(), TimeSpan.FromSeconds(10));
-        webDriverWait
-            .Until(driver => driver.FindElement(By.XPath($"//*[text()='{text}']")))
-            .Should()
-            .NotBeNull();
+        _loginPage.ShouldHaveText($"Welcome {userName}");
     }
 
     [Then(@"登录失败的错误信息是""(.*)""")]
