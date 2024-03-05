@@ -21,12 +21,16 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("Login")]
+    [NUnit.Framework.CategoryAttribute("web")]
+    [NUnit.Framework.CategoryAttribute("db")]
     public partial class LoginFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-        private string[] _featureTags = ((string[])(null));
+        private string[] _featureTags = new string[] {
+                "web",
+                "db"};
         
 #line 1 "Login.feature"
 #line hidden
@@ -35,7 +39,9 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Specs/Features/UI", "Login", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Specs/Features/UI", "Login", null, ProgrammingLanguage.CSharp, new string[] {
+                        "web",
+                        "db"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -80,7 +86,7 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("登录成功", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 3
+#line 5
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -100,13 +106,13 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
             else
             {
                 this.ScenarioStart();
-#line 4
+#line 6
         testRunner.Given("存在用户名为\"joseph\"和密码为\"123\"的用户", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 5
+#line 7
         testRunner.When("以用户名为\"joseph\"和密码为\"123\"登录时", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 6
+#line 8
         testRunner.Then("\"joseph\"登录成功", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -120,7 +126,7 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("登录失败", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 8
+#line 10
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -140,13 +146,13 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
             else
             {
                 this.ScenarioStart();
-#line 9
+#line 11
         testRunner.Given("存在用户名为\"joseph\"和密码为\"123\"的用户", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 10
+#line 12
         testRunner.When("以用户名为\"joseph\"和密码为\"incorrect-password\"登录时", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 11
+#line 13
         testRunner.Then("登录失败的错误信息是\"无效的用户名或密码\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

@@ -67,11 +67,6 @@ public class TestStepDefinitions
         target.Should().NotBeNull();
     }
 
-    [AfterScenario]
-    public void QuitWebDriver()
-    {
-        _browser.QuitWebDriver();
-    }
 
     private RemoteWebDriver GetWebDriver()
     {

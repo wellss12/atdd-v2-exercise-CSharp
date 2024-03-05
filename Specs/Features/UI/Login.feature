@@ -1,3 +1,5 @@
+@web
+@db
 Feature: Login
 
     Scenario: 登录成功

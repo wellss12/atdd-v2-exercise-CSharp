@@ -8,15 +8,18 @@
 作业2：熟悉 Selenium 使用
 其中 `当在 Yahoo 搜索关键字"cucumber"` 使用 Selenium 打开浏览器并通过百度搜索 (WebDriver 已经定义在 TestSteps.java 中)
 其中 `那么打印 Yahoo 为您找到的相关结果数` 使用 Selenium 从搜索结果页面抓取页面元素中的数据并打印到日志
-    
+
+    @db
     Scenario: 作业1-打印登录Token
         Given 存在用户名为"joseph"和密码为"123"的用户
         When 通过API以用户名为"joseph"和密码为"123"登录时
         Then 打印Token
 
+    @web
     Scenario: 作业2-操作浏览器
         When 当在 Yahoo 搜索关键字"cucumber"
         Then 那么打印 Yahoo 为您找到的相关结果数
 
+    @web
     Scenario: 环境测试
         Then 测试环境

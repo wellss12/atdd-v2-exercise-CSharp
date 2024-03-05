@@ -83,12 +83,14 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("作业1-打印登录Token")]
+        [NUnit.Framework.CategoryAttribute("db")]
         public virtual void 作业1_打印登录Token()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "db"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("作业1-打印登录Token", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 12
+#line 13
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -108,13 +110,13 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features
             else
             {
                 this.ScenarioStart();
-#line 13
+#line 14
         testRunner.Given("存在用户名为\"joseph\"和密码为\"123\"的用户", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 14
+#line 15
         testRunner.When("通过API以用户名为\"joseph\"和密码为\"123\"登录时", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 15
+#line 16
         testRunner.Then("打印Token", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -123,12 +125,14 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("作业2-操作浏览器")]
+        [NUnit.Framework.CategoryAttribute("web")]
         public virtual void 作业2_操作浏览器()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "web"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("作业2-操作浏览器", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 17
+#line 19
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -148,10 +152,10 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features
             else
             {
                 this.ScenarioStart();
-#line 18
+#line 20
         testRunner.When("当在 Yahoo 搜索关键字\"cucumber\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 19
+#line 21
         testRunner.Then("那么打印 Yahoo 为您找到的相关结果数", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -160,12 +164,14 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("环境测试")]
+        [NUnit.Framework.CategoryAttribute("web")]
         public virtual void 环境测试()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "web"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("环境测试", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 21
+#line 24
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -185,7 +191,7 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features
             else
             {
                 this.ScenarioStart();
-#line 22
+#line 25
         testRunner.Then("测试环境", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
