@@ -12,26 +12,19 @@ public class Browser
     private RemoteWebDriver? _webDriver;
 
     public void ClickByText(string text)
-    {
-        new WebDriverWait(GetWebDriver(), TimeSpan.FromSeconds(10))
-            .Until(driver => driver.FindElement(By.XPath($"//*[text()='{text}']")))
-            .Click();
-    }
+        => WaitElement($"//*[text()='{text}']").Click();
 
     public void InputByPlaceholder(string userName, string placeholder)
-    {
-        new WebDriverWait(GetWebDriver(), TimeSpan.FromSeconds(10))
-            .Until(driver => driver.FindElement(By.XPath($"//*[@placeholder='{placeholder}']")))
-            .SendKeys(userName);
-    }
+        => WaitElement($"//*[@placeholder='{placeholder}']").SendKeys(userName);
 
     public void ShouldHaveText(string text)
+        => WaitElement($"//*[text()='{text}']").Should().NotBeNull();
+
+    private IWebElement WaitElement(string xpathExpression)
     {
-        // 主要是為了避免元素未加载完成就開始 Assert
-        new WebDriverWait(GetWebDriver(), TimeSpan.FromSeconds(10))
-            .Until(driver => driver.FindElement(By.XPath($"//*[text()='{text}']")))
-            .Should()
-            .NotBeNull();
+        // 等到元素加載完成再執行後續動作
+        return new WebDriverWait(GetWebDriver(), TimeSpan.FromSeconds(10))
+            .Until(driver => driver.FindElement(By.XPath(xpathExpression)));
     }
 
     public void QuitWebDriver()
@@ -46,8 +39,10 @@ public class Browser
     public RemoteWebDriver GetWebDriver()
         => _webDriver ??= new RemoteWebDriver(new Uri("http://web-driver.tool.net:4444"), new ChromeOptions());
 
-    public void Launch(string path = "") =>
+    public void Launch(string path = "")
+    {
         GetWebDriver()
             .Navigate()
             .GoToUrl($"http://host.docker.internal:10081/{path}");
+    }
 }
