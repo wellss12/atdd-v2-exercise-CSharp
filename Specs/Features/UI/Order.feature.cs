@@ -35,7 +35,7 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Specs/Features/UI", "Order", "Simple calculator for adding two numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Specs/Features/UI", "Order", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -86,7 +86,7 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
                     "db"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("录入订单", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 7
+#line 6
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -122,7 +122,7 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
                             "13085901735",
                             "上海市长宁区",
                             "待发货"});
-#line 8
+#line 7
         testRunner.When("用如下数据录入订单", ((string)(null)), table1, "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -130,7 +130,7 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
                             "衬衫",
                             "￥19",
                             "待发货"});
-#line 11
+#line 10
         testRunner.Then("显示如下订单", ((string)(null)), table2, "Then ");
 #line hidden
             }

@@ -20,6 +20,8 @@ public static class TestDependencies
         builder.RegisterType<MyDbContext>().AsSelf().InstancePerLifetimeScope();
         builder.RegisterType<Browser>().SingleInstance();
         builder.RegisterType<LoginPage>().SingleInstance();
+        builder.RegisterType<WelcomePage>().SingleInstance();
+        builder.RegisterType<OrderPage>().SingleInstance();
     
         builder.RegisterTypes(typeof(TestDependencies).Assembly
             .GetTypes()

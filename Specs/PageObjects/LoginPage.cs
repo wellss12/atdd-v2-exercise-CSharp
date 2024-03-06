@@ -11,8 +11,8 @@ public class LoginPage
 
     public void Login(string userName, string password)
     {
-        _browser.InputByPlaceholder(userName, "用户名");
-        _browser.InputByPlaceholder(password, "密码");
+        _browser.InputByPlaceholder("用户名", userName);
+        _browser.InputByPlaceholder("密码", password);
         _browser.ClickByText("登录");
     }
 

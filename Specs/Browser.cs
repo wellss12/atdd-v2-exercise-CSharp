@@ -13,8 +13,8 @@ public class Browser
     public void ClickByText(string text)
         => WaitElement($"//*[normalize-space(text())='{text}']").Click();
 
-    public void InputByPlaceholder(string userName, string placeholder)
-        => WaitElement($"//*[@placeholder='{placeholder}']").SendKeys(userName);
+    public void InputByPlaceholder(string placeholder, string text)
+        => WaitElement($"//*[@placeholder='{placeholder}']").SendKeys(text);
 
     public void ShouldHaveText(string text)
         => WaitElement($"//*[text()='{text}']").Should().NotBeNull();
@@ -45,7 +45,7 @@ public class Browser
             .GoToUrl($"http://host.docker.internal:10081/{path}");
     }
 
-    public void SelectTextByPlaceholder(string text, string placeholder)
+    public void SelectTextByPlaceholder(string placeholder, string text)
     {
         WaitElement($"//*[normalize-space(@placeholder)='{placeholder}']").Click();
         ClickByText(text);
