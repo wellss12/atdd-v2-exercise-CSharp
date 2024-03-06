@@ -1,3 +1,4 @@
+using ATDD.V2.Exercise.CSharp.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -22,11 +23,7 @@ public class MyDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder
-            .Entity<User>()
-            .ToTable("users")
-            .Property(t => t.Id)
-            .ValueGeneratedOnAdd();
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserEntityTypeConfiguration).Assembly);
 
         modelBuilder.Entity<User>().Property(t => t.UserName).HasColumnName("user_name");
         base.OnModelCreating(modelBuilder);
