@@ -41,4 +41,11 @@ public sealed class LoginStepDefinition
     {
         _browser.ShouldHaveText(errorMessage);
     }
+    
+    [BeforeScenario("ui-login")]
+    public async Task UiLogin()
+    {
+        await Given存在用户名为和密码为的用户("test", "test");
+        When以用户名为和密码为登录时("test", "test");
+    }
 }

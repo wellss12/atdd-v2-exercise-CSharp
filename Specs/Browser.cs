@@ -11,7 +11,7 @@ public class Browser
     private RemoteWebDriver? _webDriver;
 
     public void ClickByText(string text)
-        => WaitElement($"//*[text()='{text}']").Click();
+        => WaitElement($"//*[normalize-space(text())='{text}']").Click();
 
     public void InputByPlaceholder(string userName, string placeholder)
         => WaitElement($"//*[@placeholder='{placeholder}']").SendKeys(userName);
@@ -43,5 +43,11 @@ public class Browser
         GetWebDriver()
             .Navigate()
             .GoToUrl($"http://host.docker.internal:10081/{path}");
+    }
+
+    public void SelectTextByPlaceholder(string text, string placeholder)
+    {
+        WaitElement($"//*[normalize-space(@placeholder)='{placeholder}']").Click();
+        ClickByText(text);
     }
 }
