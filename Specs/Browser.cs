@@ -6,7 +6,6 @@ using OpenQA.Selenium.Support.UI;
 
 namespace ATDD.V2.Exercise.CSharp.Specs;
 
-[Binding]
 public class Browser
 {
     private RemoteWebDriver? _webDriver;

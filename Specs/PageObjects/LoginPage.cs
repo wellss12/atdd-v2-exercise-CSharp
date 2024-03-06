@@ -1,6 +1,5 @@
 namespace ATDD.V2.Exercise.CSharp.Specs.PageObjects;
 
-[Binding]
 public class LoginPage
 {
     private readonly Browser _browser;
