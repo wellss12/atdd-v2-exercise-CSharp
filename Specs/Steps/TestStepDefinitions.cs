@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using ATDD.V2.Exercise.CSharp.ORM.Entities;
 using FluentAssertions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;

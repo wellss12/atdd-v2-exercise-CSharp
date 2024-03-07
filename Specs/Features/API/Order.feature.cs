@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
+namespace ATDD.V2.Exercise.CSharp.Specs.Features.API
 {
     using TechTalk.SpecFlow;
     using System;
@@ -35,7 +35,7 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Specs/Features/UI", "Order", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Specs/Features/API", "Order", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,19 +74,15 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("录入订单")]
-        [NUnit.Framework.CategoryAttribute("ui-login")]
-        [NUnit.Framework.CategoryAttribute("web")]
+        [NUnit.Framework.DescriptionAttribute("订单列表")]
         [NUnit.Framework.CategoryAttribute("db")]
-        public virtual void 录入订单()
+        public virtual void 订单列表()
         {
             string[] tagsOfScenario = new string[] {
-                    "ui-login",
-                    "web",
                     "db"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("录入订单", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 6
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("订单列表", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 4
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -106,32 +102,27 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                            "订单号",
-                            "商品名称",
-                            "金额",
-                            "收件人",
-                            "电话",
-                            "地址",
-                            "状态"});
-                table2.AddRow(new string[] {
+                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                            "code",
+                            "productName",
+                            "total",
+                            "recipientName",
+                            "status"});
+                table1.AddRow(new string[] {
                             "SN001",
-                            "衬衫",
-                            "19",
+                            "电脑",
+                            "19999",
                             "张三",
-                            "13085901735",
-                            "上海市长宁区",
-                            "待发货"});
-#line 7
-        testRunner.When("用如下数据录入订单", ((string)(null)), table2, "When ");
+                            "toBeDelivered"});
+#line 5
+        testRunner.Given("存在如下订单:", ((string)(null)), table1, "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                            "SN001",
-                            "衬衫",
-                            "￥19",
-                            "待发货"});
-#line 10
-        testRunner.Then("显示如下订单", ((string)(null)), table3, "Then ");
+#line 8
+        testRunner.When("API查询订单时", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 9
+        testRunner.Then("返回如下订单", "  [{\r\n    \"code\": \"SN001\",\r\n    \"productName\": \"电脑\",\r\n    \"total\": 19999.00,\r\n   " +
+                        " \"status\": \"toBeDelivered\"\r\n  }]", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

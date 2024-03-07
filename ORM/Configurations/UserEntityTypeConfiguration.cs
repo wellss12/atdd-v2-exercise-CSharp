@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ATDD.V2.Exercise.CSharp.ORM.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ATDD.V2.Exercise.CSharp.Configurations;
+namespace ATDD.V2.Exercise.CSharp.ORM.Configurations;
 
 public class UserEntityTypeConfiguration: IEntityTypeConfiguration<User>
 {

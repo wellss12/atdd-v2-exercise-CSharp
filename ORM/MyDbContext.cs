@@ -1,8 +1,9 @@
-using ATDD.V2.Exercise.CSharp.Configurations;
+﻿using ATDD.V2.Exercise.CSharp.ORM.Configurations;
+using ATDD.V2.Exercise.CSharp.ORM.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace ATDD.V2.Exercise.CSharp;
+namespace ATDD.V2.Exercise.CSharp.ORM;
 
 public class MyDbContext : DbContext
 {
@@ -14,6 +15,7 @@ public class MyDbContext : DbContext
     }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Order> Orders { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -25,14 +27,5 @@ public class MyDbContext : DbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserEntityTypeConfiguration).Assembly);
 
-        modelBuilder.Entity<User>().Property(t => t.UserName).HasColumnName("user_name");
-        base.OnModelCreating(modelBuilder);
     }
-}
-
-public class User
-{
-    public long Id { get; set; }
-    public string UserName { get; set; }
-    public string Password { get; set; }
 }

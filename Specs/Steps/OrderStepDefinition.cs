@@ -1,4 +1,7 @@
-﻿using ATDD.V2.Exercise.CSharp.Specs.PageObjects;
+﻿using ATDD.V2.Exercise.CSharp.ORM;
+using ATDD.V2.Exercise.CSharp.ORM.Entities;
+using ATDD.V2.Exercise.CSharp.Specs.PageObjects;
+using FluentAssertions;
 
 namespace ATDD.V2.Exercise.CSharp.Specs.Steps;
 
@@ -8,12 +11,31 @@ public class OrderStepDefinition
     private readonly Browser _browser;
     private readonly WelcomePage _welcomePage;
     private readonly OrderPage _orderPage;
+    private readonly MyDbContext _dbContext;
 
-    public OrderStepDefinition(Browser browser, WelcomePage welcomePage, OrderPage orderPage)
+    public OrderStepDefinition(Browser browser, WelcomePage welcomePage, OrderPage orderPage, MyDbContext dbContext)
     {
         _browser = browser;
         _welcomePage = welcomePage;
         _orderPage = orderPage;
+        _dbContext = dbContext;
+    }
+
+    [Given(@"存在如下订单:")]
+    public async Task Given存在如下订单(Table table)
+    {
+        var orderMap = table.Rows[0].ToDictionary(t => t.Key, t => t.Value);
+        var order = new Order
+        {
+            Code = orderMap["code"],
+            ProductName = orderMap["productName"],
+            Total = Convert.ToDecimal(orderMap["total"]),
+            RecipientName = orderMap["recipientName"],
+            Status = orderMap["status"],
+        };
+        
+        _dbContext.Orders.Add(order);
+        await _dbContext.SaveChangesAsync();
     }
 
     [When(@"用如下数据录入订单")]
