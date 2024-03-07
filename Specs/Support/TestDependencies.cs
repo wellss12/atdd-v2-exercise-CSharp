@@ -23,6 +23,7 @@ public static class TestDependencies
         builder.RegisterType<LoginPage>().SingleInstance();
         builder.RegisterType<WelcomePage>().SingleInstance();
         builder.RegisterType<OrderPage>().SingleInstance();
+        builder.RegisterType<HttpClient>().InstancePerLifetimeScope();
     
         builder.RegisterTypes(typeof(TestDependencies).Assembly
             .GetTypes()

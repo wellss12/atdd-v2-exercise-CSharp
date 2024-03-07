@@ -75,14 +75,16 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.API
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("订单列表")]
+        [NUnit.Framework.CategoryAttribute("api-login")]
         [NUnit.Framework.CategoryAttribute("db")]
         public virtual void 订单列表()
         {
             string[] tagsOfScenario = new string[] {
+                    "api-login",
                     "db"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("订单列表", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 4
+#line 5
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -114,13 +116,13 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.API
                             "19999",
                             "张三",
                             "toBeDelivered"});
-#line 5
+#line 6
         testRunner.Given("存在如下订单:", ((string)(null)), table1, "Given ");
 #line hidden
-#line 8
+#line 9
         testRunner.When("API查询订单时", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 9
+#line 10
         testRunner.Then("返回如下订单", "  [{\r\n    \"code\": \"SN001\",\r\n    \"productName\": \"电脑\",\r\n    \"total\": 19999.00,\r\n   " +
                         " \"status\": \"toBeDelivered\"\r\n  }]", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden

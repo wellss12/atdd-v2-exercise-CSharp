@@ -1,5 +1,6 @@
 ﻿Feature: Order
 
+    @api-login
     @db
     Scenario: 订单列表
         Given 存在如下订单:
