@@ -30,7 +30,9 @@ public class OrderStepDefinition
             Code = orderMap["code"],
             ProductName = orderMap["productName"],
             Total = Convert.ToDecimal(orderMap["total"]),
-            RecipientName = orderMap["recipientName"],
+            RecipientName = orderMap.TryGetValue("recipientName", out var recipientName) ? recipientName : null,
+            RecipientMobile = orderMap.TryGetValue("recipientMobile", out var recipientMobile) ? recipientMobile : null,
+            RecipientAddress = orderMap.TryGetValue("recipientAddress", out var recipientAddress) ? recipientAddress : null ,
             Status = orderMap["status"],
         };
         

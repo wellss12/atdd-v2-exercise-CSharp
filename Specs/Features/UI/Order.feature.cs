@@ -106,7 +106,7 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                             "订单号",
                             "商品名称",
                             "金额",
@@ -114,7 +114,7 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
                             "电话",
                             "地址",
                             "状态"});
-                table2.AddRow(new string[] {
+                table5.AddRow(new string[] {
                             "SN001",
                             "衬衫",
                             "19",
@@ -123,15 +123,15 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.UI
                             "上海市长宁区",
                             "待发货"});
 #line 7
-        testRunner.When("用如下数据录入订单", ((string)(null)), table2, "When ");
+        testRunner.When("用如下数据录入订单", ((string)(null)), table5, "When ");
 #line hidden
-                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                             "SN001",
                             "衬衫",
                             "￥19",
                             "待发货"});
 #line 10
-        testRunner.Then("显示如下订单", ((string)(null)), table3, "Then ");
+        testRunner.Then("显示如下订单", ((string)(null)), table6, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
