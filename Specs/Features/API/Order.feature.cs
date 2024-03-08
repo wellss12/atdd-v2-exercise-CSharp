@@ -184,7 +184,7 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.API
 #line 25
         testRunner.Then("返回如下订单", "  {\r\n    \"code\": \"SN001\",\r\n    \"productName\": \"电脑\",\r\n    \"total\": 19999.0,\r\n    \"" +
                         "recipientName\": \"张三\",\r\n    \"recipientMobile\": \"13085901735\",\r\n    \"recipientAddr" +
-                        "ess\": \"上海市长宁\",\r\n    \"status\": \"toBeDelivered\"\r\n  }", ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                        "ess\": \"上海市长宁区\",\r\n    \"status\": \"toBeDelivered\"\r\n  }", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

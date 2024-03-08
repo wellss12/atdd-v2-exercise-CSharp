@@ -52,4 +52,17 @@ public class API
         var actual = JToken.Parse(_response);
         actual.Should().BeEquivalentTo(expected);
     }
+
+    public async Task Post(string path, Dictionary<string, object> body)
+    {
+        var json = JsonSerializer.Serialize(body, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var responseMessage = await _httpClient.PostAsync($"http://localhost:10081/api/{path}", content);
+
+        _response = await responseMessage.Content.ReadAsStringAsync();
+    }
 }
