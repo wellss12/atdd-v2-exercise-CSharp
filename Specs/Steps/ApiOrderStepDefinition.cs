@@ -23,9 +23,9 @@ public class ApiOrderStepDefinition
     }
 
     [Then(@"返回如下订单")]
-    public void Then返回如下订单(string json)
+    public Task Then返回如下订单(string json)
     {
-        _api.ResponseShouldMatchJson(json);
+        return _api.ResponseShouldMatchJson(json);
     }
 
     [When(@"API查询订单""(.*)""详情时")]
@@ -38,7 +38,7 @@ public class ApiOrderStepDefinition
     public Task When通过api发货订单快递单号为(string code, string deliverNo)
     {
         var body = new Dictionary<string, object> { { "deliverNo", deliverNo } };
-        return _api.Post($"orders/{code}/deliver", body);
+        return _api.Post($"api/orders/{code}/deliver", body);
     }
 
     [Then(@"订单""(.*)""已发货，快递单号为""(.*)""")]
