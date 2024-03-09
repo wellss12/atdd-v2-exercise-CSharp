@@ -1,13 +1,6 @@
 ﻿namespace ATDD.V2.Exercise.CSharp.Specs.PageObjects;
 
-public class WelcomePage
+public class WelcomePage(Browser browser)
 {
-    private readonly Browser _browser;
-
-    public WelcomePage(Browser browser)
-    {
-        _browser = browser;
-    }
-
-    public void GotoOrderPage() => _browser.ClickByText("订单");
+    public void GotoOrderPage() => browser.ClickByText("订单");
 }

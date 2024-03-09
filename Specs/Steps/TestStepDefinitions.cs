@@ -8,20 +8,13 @@ using OpenQA.Selenium.Remote;
 namespace ATDD.V2.Exercise.CSharp.Specs.Steps;
 
 [Binding]
-public class TestStepDefinitions
+public class TestStepDefinitions(Browser browser, HttpClient httpClient)
 {
-    private readonly Browser _browser;
-    private HttpResponseMessage _response;
-
-    public TestStepDefinitions(Browser browser)
-    {
-        _browser = browser;
-    }
+    private HttpResponseMessage? _response;
 
     [When(@"通过API以用户名为""(.*)""和密码为""(.*)""登录时")]
     public async Task When通过api以用户名为和密码为登录时(string userName, string password)
     {
-        var httpClient = new HttpClient();
         var user = new User { UserName = userName, Password = password };
         var json = JsonSerializer.Serialize(user, new JsonSerializerOptions
         {
@@ -68,9 +61,5 @@ public class TestStepDefinitions
         target.Should().NotBeNull();
     }
 
-
-    private RemoteWebDriver GetWebDriver()
-    {
-        return _browser.GetWebDriver();
-    }
+    private RemoteWebDriver GetWebDriver() => browser.GetWebDriver();
 }
