@@ -81,7 +81,7 @@ Feature: Order
           {
             "code": "SN001",
             "productName": "电脑",
-            "total": 19999,
+            "total": 19999.0,
             "recipientName": "张三",
             "recipientMobile": "13085901735",
             "recipientAddress": "上海市长宁区",

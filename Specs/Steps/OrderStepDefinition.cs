@@ -1,26 +1,12 @@
 ﻿using ATDD.V2.Exercise.CSharp.ORM;
 using ATDD.V2.Exercise.CSharp.ORM.Entities;
 using ATDD.V2.Exercise.CSharp.Specs.PageObjects;
-using FluentAssertions;
 
 namespace ATDD.V2.Exercise.CSharp.Specs.Steps;
 
 [Binding]
-public class OrderStepDefinition
+public class OrderStepDefinition(Browser browser, WelcomePage welcomePage, OrderPage orderPage, MyDbContext dbContext)
 {
-    private readonly Browser _browser;
-    private readonly WelcomePage _welcomePage;
-    private readonly OrderPage _orderPage;
-    private readonly MyDbContext _dbContext;
-
-    public OrderStepDefinition(Browser browser, WelcomePage welcomePage, OrderPage orderPage, MyDbContext dbContext)
-    {
-        _browser = browser;
-        _welcomePage = welcomePage;
-        _orderPage = orderPage;
-        _dbContext = dbContext;
-    }
-
     [Given(@"存在如下订单:")]
     public async Task Given存在如下订单(Table table)
     {
@@ -34,18 +20,20 @@ public class OrderStepDefinition
             RecipientMobile = orderMap.TryGetValue("recipientMobile", out var recipientMobile) ? recipientMobile : null,
             RecipientAddress = orderMap.TryGetValue("recipientAddress", out var recipientAddress) ? recipientAddress : null ,
             Status = orderMap["status"],
+            DeliverNo = orderMap.TryGetValue("deliverNo", out var deliverNo) ? deliverNo : null ,
+            DeliveredAt = orderMap.TryGetValue("deliveredAt", out var deliveredAt) ? DateTime.Parse(deliveredAt) : null 
         };
         
-        _dbContext.Orders.Add(order);
-        await _dbContext.SaveChangesAsync();
+        dbContext.Orders.Add(order);
+        await dbContext.SaveChangesAsync();
     }
 
     [When(@"用如下数据录入订单")]
     public void When用如下数据录入订单(Table table)
     {
         var orderMap = table.Rows[0].ToDictionary(t => t.Key, t => t.Value);
-        _welcomePage.GotoOrderPage();
-        _orderPage.CreateOrder(orderMap);
+        welcomePage.GotoOrderPage();
+        orderPage.CreateOrder(orderMap);
     }
 
     [Then(@"显示如下订单")]
@@ -53,7 +41,7 @@ public class OrderStepDefinition
     {
         foreach (var header in table.Header)
         {
-            _browser.ShouldHaveText(header);
+            browser.ShouldHaveText(header);
         }
     }
 }

@@ -331,7 +331,7 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.API
         testRunner.Then("返回如下订单", @"  {
     ""code"": ""SN001"",
     ""productName"": ""电脑"",
-    ""total"": 19999,
+    ""total"": 19999.0,
     ""recipientName"": ""张三"",
     ""recipientMobile"": ""13085901735"",
     ""recipientAddress"": ""上海市长宁区"",

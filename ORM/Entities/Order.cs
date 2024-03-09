@@ -4,7 +4,7 @@ public class Order
 {
     public long Id { get; set; }
     public string Code { get; set; }
-    public string DeliverNo { get; set; }
+    public string? DeliverNo { get; set; }
     public DateTime? DeliveredAt { get; set; }
     public string ProductName { get; set; }
     public string? RecipientAddress { get; set; }
