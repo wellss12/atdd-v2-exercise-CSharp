@@ -25,7 +25,10 @@ public class MockServer
         await _httpClient.PutAsync(_options.ResetUrl, new StringContent("{}", Encoding.UTF8, "application/json"));
     }
 
-    public async Task SetJsonExpectationForGetRequest(string path, string response, Dictionary<string, string> queryStringMap)
+    public async Task SetJsonExpectationForGetRequest(
+        string path,
+        string response,
+        Dictionary<string, string>? queryStringMap = null)
     {
         // https://www.mock-server.com/mock_server/creating_expectations.html
         var request = new MockServerRequestModel
@@ -34,7 +37,7 @@ public class MockServer
             {
                 Method = "GET",
                 Path = path,
-                QueryStringParameters = queryStringMap
+                QueryStringParameters = queryStringMap ?? new Dictionary<string, string>()
             },
             HttpResponse = new HttpResponse
             {

@@ -33,6 +33,16 @@ public class ApiOrderStepDefinition(API api, MyDbContext dbContext, MockServer m
         return api.Post($"api/orders/{code}/deliver", body);
     }
 
+    [Then(@"订单""(.*)""已发货，发货时间为""(.*)""，快递单号为""(.*)""")]
+    public void Then订单已发货发货时间为快递单号为(string code, string dateTime, string deliverNo)
+    {
+        var order = dbContext.Orders.AsNoTracking().SingleOrDefault(t => t.Code == code);
+        order.Should().NotBeNull();
+        order!.DeliverNo.Should().Be(deliverNo);
+        order.Status.Should().Be("delivering");
+        order.DeliveredAt.Should().Be(DateTimeOffset.Parse(dateTime).DateTime);
+    }
+
     [Then(@"订单""(.*)""已发货，快递单号为""(.*)""")]
     public void Then订单已发货快递单号为(string code, string deliverNo)
     {
@@ -51,5 +61,11 @@ public class ApiOrderStepDefinition(API api, MyDbContext dbContext, MockServer m
             { "appkey", "test" },
             { "number", deliverNo }
         });
+    }
+
+    [Given(@"当前时间为""(.*)""")]
+    public Task Given当前时间为(string dateTime)
+    {
+        return mockServer.SetJsonExpectationForGetRequest("/clock",  $"\"{dateTime}\"");
     }
 }

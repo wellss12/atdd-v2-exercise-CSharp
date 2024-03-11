@@ -237,10 +237,13 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.API
         testRunner.Given("存在如下订单:", ((string)(null)), table3, "Given ");
 #line hidden
 #line 42
-        testRunner.When("通过API发货订单\"SN001\"，快递单号为\"SF001\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.And("当前时间为\"2000-05-10T20:00:00Z\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 43
-        testRunner.Then("订单\"SN001\"已发货，快递单号为\"SF001\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        testRunner.When("通过API发货订单\"SN001\"，快递单号为\"SF001\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 44
+        testRunner.Then("订单\"SN001\"已发货，发货时间为\"2000-05-10T20:00:00Z\"，快递单号为\"SF001\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -253,7 +256,7 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.API
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("订单详情 - 查询物流", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 45
+#line 46
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -293,10 +296,10 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.API
                             "delivering",
                             "4313751158896",
                             "2022-02-26 16:25:01"});
-#line 46
+#line 47
         testRunner.Given("存在如下订单:", ((string)(null)), table4, "Given ");
 #line hidden
-#line 49
+#line 50
         testRunner.And("存在快递单\"4313751158896\"的物流信息如下", @"{
     ""status"": 0,
     ""msg"": ""ok"",
@@ -324,10 +327,10 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.API
     }
 }", ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 78
+#line 79
         testRunner.When("API查询订单\"SN001\"详情时", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 79
+#line 80
         testRunner.Then("返回如下订单", @"  {
     ""code"": ""SN001"",
     ""productName"": ""电脑"",

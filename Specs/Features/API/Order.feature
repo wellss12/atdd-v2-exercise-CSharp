@@ -39,8 +39,9 @@ Feature: Order
         Given 存在如下订单:
           | code  | productName | total | recipientName | recipientMobile | recipientAddress | status        |
           | SN001 | 电脑          | 19999 | 张三            | 13085901735     | 上海市长宁区           | toBeDelivered |
+        And 当前时间为"2000-05-10T20:00:00Z"
         When 通过API发货订单"SN001"，快递单号为"SF001"
-        Then 订单"SN001"已发货，快递单号为"SF001"
+        Then 订单"SN001"已发货，发货时间为"2000-05-10T20:00:00Z"，快递单号为"SF001"
 
     Scenario: 订单详情 - 查询物流
         Given 存在如下订单:

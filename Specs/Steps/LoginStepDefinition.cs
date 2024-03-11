@@ -32,7 +32,7 @@ public sealed class LoginStepDefinition(MyDbContext dbContext, LoginPage loginPa
     {
         browser.ShouldHaveText(errorMessage);
     }
-    
+
     [BeforeScenario("ui-login")]
     public async Task UiLogin()
     {
