@@ -28,6 +28,7 @@ public class MockServer
     public async Task SetJsonExpectationForGetRequest(
         string path,
         string response,
+        int times = 0,
         Dictionary<string, string>? queryStringMap = null)
     {
         // https://www.mock-server.com/mock_server/creating_expectations.html
@@ -39,6 +40,7 @@ public class MockServer
                 Path = path,
                 QueryStringParameters = queryStringMap ?? new Dictionary<string, string>()
             },
+            Times = new Times { RemainingTimes = times },
             HttpResponse = new HttpResponse
             {
                 Body = response,

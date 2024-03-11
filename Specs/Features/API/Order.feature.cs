@@ -367,6 +367,91 @@ namespace ATDD.V2.Exercise.CSharp.Specs.Features.API
             }
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("订单自动完成")]
+        public virtual void 订单自动完成()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("订单自动完成", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 116
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                            "code",
+                            "productName",
+                            "total",
+                            "recipientName",
+                            "recipientMobile",
+                            "recipientAddress",
+                            "status",
+                            "deliveredAt"});
+                table5.AddRow(new string[] {
+                            "状态和时间都符合",
+                            "电脑",
+                            "19999",
+                            "张三",
+                            "13085901735",
+                            "上海市长宁区",
+                            "delivering",
+                            "2000-05-10 20:00:00"});
+                table5.AddRow(new string[] {
+                            "状态不符的时间符合",
+                            "手机",
+                            "29999",
+                            "李四",
+                            "13817817777",
+                            "上海市杨浦区",
+                            "toBeDelivered",
+                            "2000-05-10 20:00:00"});
+                table5.AddRow(new string[] {
+                            "状态符合时间不符合",
+                            "iPad",
+                            "39999",
+                            "王五",
+                            "13355557777",
+                            "上海市浦东新区",
+                            "delivering",
+                            "2000-05-10 20:00:01"});
+#line 117
+        testRunner.Given("存在如下订单:", ((string)(null)), table5, "Given ");
+#line hidden
+#line 122
+        testRunner.And("当前时间为\"2000-05-25T20:00:00Z\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 123
+        testRunner.When("单任务运行时", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 124
+        testRunner.Then("订单\"状态和时间都符合\"的状态为\"done\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 125
+        testRunner.And("订单\"状态不符的时间符合\"的状态为\"toBeDelivered\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 126
+        testRunner.And("订单\"状态符合时间不符合\"的状态为\"delivering\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

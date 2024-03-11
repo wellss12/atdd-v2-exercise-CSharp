@@ -55,17 +55,33 @@ public class ApiOrderStepDefinition(API api, MyDbContext dbContext, MockServer m
     [Given(@"存在快递单""(.*)""的物流信息如下")]
     public Task Given存在快递单的物流信息如下(string deliverNo, string response)
     {
-        return mockServer.SetJsonExpectationForGetRequest("/express/query", response, new Dictionary<string, string>
-        {
-            { "type", "auto" },
-            { "appkey", "test" },
-            { "number", deliverNo }
-        });
+        return mockServer.SetJsonExpectationForGetRequest("/express/query", response,
+            queryStringMap: new Dictionary<string, string>
+            {
+                { "type", "auto" },
+                { "appkey", "test" },
+                { "number", deliverNo }
+            });
     }
 
     [Given(@"当前时间为""(.*)""")]
     public Task Given当前时间为(string dateTime)
     {
         return mockServer.SetJsonExpectationForGetRequest("/clock",  $"\"{dateTime}\"");
+    }
+
+    [When(@"单任务运行时")]
+    public Task When单任务运行时()
+    {
+        return mockServer.SetJsonExpectationForGetRequest("/task", "true", 1);
+    }
+
+    [Then(@"订单""(.*)""的状态为""(.*)""")]
+    public async Task Then订单的状态为(string code, string status)
+    {
+        await Task.Delay(2000);
+        var order = await dbContext.Orders.AsNoTracking().SingleOrDefaultAsync(t => t.Code == code);
+        order.Should().NotBeNull();
+        order!.Status.Should().Be(status);
     }
 }

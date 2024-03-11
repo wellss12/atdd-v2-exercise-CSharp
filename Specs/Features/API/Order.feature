@@ -112,3 +112,15 @@ Feature: Order
             }
           }
         """
+
+    Scenario: 订单自动完成
+        Given 存在如下订单:
+          | code      | productName | total | recipientName | recipientMobile | recipientAddress | status        | deliveredAt         |
+          | 状态和时间都符合  | 电脑          | 19999 | 张三            | 13085901735     | 上海市长宁区           | delivering    | 2000-05-10 20:00:00 |
+          | 状态不符的时间符合 | 手机          | 29999 | 李四            | 13817817777     | 上海市杨浦区           | toBeDelivered | 2000-05-10 20:00:00 |
+          | 状态符合时间不符合 | iPad        | 39999 | 王五            | 13355557777     | 上海市浦东新区          | delivering    | 2000-05-10 20:00:01 |
+        And 当前时间为"2000-05-25T20:00:00Z"
+        When 单任务运行时
+        Then 订单"状态和时间都符合"的状态为"done"
+        And 订单"状态不符的时间符合"的状态为"toBeDelivered"
+        And 订单"状态符合时间不符合"的状态为"delivering"
